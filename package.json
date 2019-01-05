@@ -1,0 +1,24 @@
+{
+  "name": "surveyavengers",
+  "version": "1.0.0",
+  "description": "API for survey avengers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "myApi"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Sourabh Sahu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.2"
+  }
+}
