@@ -23,5 +23,5 @@ app.use("*",(req,res)=>{
 
 app.listen(port,function(){
     //alert(__dirname);
-    console.log("listeing at port 3000 now");
+    console.log("listeing at port 3000 now" + port);
 })
