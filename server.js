@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json()); 
 app.use(express.static('public'));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
 
 app.use("/api",api);
@@ -23,5 +23,5 @@ app.use("*",(req,res)=>{
 
 app.listen(port,function(){
     //alert(__dirname);
-    console.log("listeing at port 3000");
+    console.log("listeing at port 3000 now");
 })
