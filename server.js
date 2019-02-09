@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 3002;
 
 const app = express(); 
 // app.use(express.static(path.join(__dirname,"dist")));
-// app.use(bodyParser.urlencoded({extended:true}));
-// app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json()); 
 app.use(express.static('public'));
 app.use(favicon(path.join(__dirname, '/favicon.ico')));
 
