@@ -40,6 +40,8 @@ router.post("/signup",(req,res)=>{
     })
 
     router.get("/signup",(req,res)=>{
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         userLogin.find({})
         .exec((err,data)=>{
             if(err){
