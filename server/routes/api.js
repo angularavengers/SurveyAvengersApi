@@ -94,7 +94,7 @@ router.delete("/deleteuser",(req,res)=>{
 
     
 
-router.get("/signup",(req,res)=>{
+router.get("/getalluser",(req,res)=>{
 res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 userLogin.find({})
