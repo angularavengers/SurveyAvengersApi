@@ -41,7 +41,7 @@ router.post("/signup",(req,res)=>{
 
 
 
-router.put("/signup",(req,res)=>{
+router.put("/updateuser",(req,res)=>{
     userLogin.findByIdAndUpdate(req.body.id, {
         userName:req.body.user,
         password:req.body.password,
@@ -55,7 +55,9 @@ router.put("/signup",(req,res)=>{
                  message: "Note not found with id " + req.params.noteId
              });
          }
-         res.send(note);
+         res.send({
+            message: "updated successfully--- " + note 
+        });
      }).catch(err => {
          if(err.kind === 'ObjectId') {
              return res.status(404).send({
@@ -69,41 +71,41 @@ router.put("/signup",(req,res)=>{
      
     })
 
-    router.delete("/signup",(req,res)=>{
-        userLogin.findByIdAndRemove(req.body.id)
-        .then(note => {
-            if(!note) {
-                return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
-                });
-            }
-            res.send({message: "Note deleted successfully!"});
-        }).catch(err => {
-            if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-                return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
-                });                
-            }
-            return res.status(500).send({
-                message: "Could not delete note with id " + req.params.noteId
+router.delete("/deleteuser",(req,res)=>{
+    userLogin.findByIdAndRemove(req.body.id)
+    .then(note => {
+        if(!note) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.noteId
             });
+        }
+        res.send({message: "Note deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.noteId
+            });                
+        }
+        return res.status(500).send({
+            message: "Could not delete note with id " + req.params.noteId
         });
-        })
+    });
+    })
 
     
 
-    router.get("/signup",(req,res)=>{
-        res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        userLogin.find({})
-        .exec((err,data)=>{
-            if(err){
-                res.send("error finding in data " + err);
-            }
-            res.json(data)
-        });
-       
-        })
+router.get("/signup",(req,res)=>{
+res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+userLogin.find({})
+.exec((err,data)=>{
+    if(err){
+        res.send("error finding in data " + err);
+    }
+    res.json(data)
+});
+
+})
 
 // router.get("/userLogin",(req,res)=>{
 //     userModel.findById("5c44c72aebe6d92b809bec17")
