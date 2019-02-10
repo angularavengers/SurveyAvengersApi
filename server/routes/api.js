@@ -72,6 +72,7 @@ router.put("/updateuser",(req,res)=>{
     })
 
 router.delete("/deleteuser",(req,res)=>{
+    console.log(req.body.id);
     userLogin.findByIdAndRemove(req.body.id)
     .then(note => {
         if(!note) {
