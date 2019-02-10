@@ -14,11 +14,11 @@ mongoose.connect(db,{ useNewUrlParser: true },function(err){
      console.log("Error occured" + err)
  }
 })
-
+// Sourabh--- Created to get all data based on route
 router.get("/",(req,res)=>{
    res.status(200).json({data:"This is parent Route"})
 })
-
+// Creted to post data with values (user,password,email,phoneno,aboutme)
 router.post("/signup",(req,res)=>{
     console.log(req.body);
    var signup = new userLogin();
@@ -39,9 +39,62 @@ router.post("/signup",(req,res)=>{
      )
     })
 
+
+
+router.put("/signup",(req,res)=>{
+    userLogin.findByIdAndUpdate(req.body.id, {
+        userName:req.body.user,
+        password:req.body.password,
+        email:req.body.email,
+        phoneno:req.body.phoneno,
+        aboutme:req.body.aboutme
+     }, {new: true})
+     .then(note => {
+         if(!note) {
+             return res.status(404).send({
+                 message: "Note not found with id " + req.params.noteId
+             });
+         }
+         res.send(note);
+     }).catch(err => {
+         if(err.kind === 'ObjectId') {
+             return res.status(404).send({
+                 message: "Note not found with id " + req.params.noteId
+             });                
+         }
+         return res.status(500).send({
+             message: "Error updating note with id " + req.params.noteId
+         });
+     });
+     
+    })
+
+    router.delete("/signup",(req,res)=>{
+        userLogin.findByIdAndRemove(req.body.id)
+        .then(note => {
+            if(!note) {
+                return res.status(404).send({
+                    message: "Note not found with id " + req.params.noteId
+                });
+            }
+            res.send({message: "Note deleted successfully!"});
+        }).catch(err => {
+            if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+                return res.status(404).send({
+                    message: "Note not found with id " + req.params.noteId
+                });                
+            }
+            return res.status(500).send({
+                message: "Could not delete note with id " + req.params.noteId
+            });
+        });
+        })
+
+    
+
     router.get("/signup",(req,res)=>{
         res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         userLogin.find({})
         .exec((err,data)=>{
             if(err){
