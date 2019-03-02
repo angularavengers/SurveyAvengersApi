@@ -94,25 +94,18 @@ router.delete("/deleteuser",(req,res)=>{
 })
 
 router.post("/login",(req,res)=>{
-    console.log(req.body.id);
-    userLogin.findById(req.body.id)
-    .then(note => {
-        if(!note) {
+    console.log(req.body.email);
+    userLogin.findOne({'email':req.body.email},(err,data)=>{
+        console.log(data);
+        if(!data) {
             return res.status(404).send({
-                message: "User Not fount " + req.body.id
+                message: "User Not found " + req.body.email
             });
-    }
-        res.send({message: "Logeed in successfully!"});
-    }).catch(err => {
-        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-            return res.status(404).send({
-                message: "User not found with id " + req.body.id
-            });                
-        }
-        return res.status(500).send({
-            message: "Could not found  user with id " + req.body.id
-        });
-    });
+         }
+         res.send({message: "Logeed in successfully!",data:data});
+    
+    })
+    
 })    
 
 router.get("/getalluser",(req,res)=>{
