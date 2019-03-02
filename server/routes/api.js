@@ -91,7 +91,7 @@ router.delete("/deleteuser",(req,res)=>{
             message: "Could not delete note with id " + req.body.id
         });
     });
-    })
+})
 
     
 
