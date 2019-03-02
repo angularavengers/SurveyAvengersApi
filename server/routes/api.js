@@ -93,7 +93,27 @@ router.delete("/deleteuser",(req,res)=>{
     });
 })
 
-    
+router.post("/login",(req,res)=>{
+    console.log(req.body.id);
+    userLogin.findById(req.body.id)
+    .then(note => {
+        if(!note) {
+            return res.status(404).send({
+                message: "User Not fount " + req.body.id
+            });
+    }
+        res.send({message: "Logeed in successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "User not found with id " + req.body.id
+            });                
+        }
+        return res.status(500).send({
+            message: "Could not found  user with id " + req.body.id
+        });
+    });
+})    
 
 router.get("/getalluser",(req,res)=>{
 res.header("Access-Control-Allow-Origin", "*");
